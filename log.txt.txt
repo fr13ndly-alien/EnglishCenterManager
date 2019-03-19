@@ -1,1 +1,12 @@
-write some text to demo
+mỗi học sinh sẽ được cấp một cái user/password. 
+giáo viên cũng được cấp một cái user để quản lí điểm của lớp mà mình phụ trách. 
+có trang chủ để đăng thông báo. 
+mục tài liệu để lưu trữ tài liệu theo từng khối lớp. 
+có phần thảo luận để ai thắc mắc về bài học có thể lên trao đổi. 
+
+
+username, hoTen, namSinh, cmnd, queQuan, khoi lop, ten truong, sokhoa hoc
+giao vien: int kinhNghiem, ArrayList<String> lopDay, 
+            String username, String hoTen, Date namSinh, String cmnd, String queQuan
+Hoc phan: String maHP, int siSo, GiaoVien giaoVien, ArrayList<HocSinh> danhSachLop
+Tai lieu: String maTaiLieu, int khoiLop, String link
