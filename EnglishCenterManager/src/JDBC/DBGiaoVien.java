@@ -52,6 +52,7 @@ public class DBGiaoVien {
                     gv.setDiaChi(rs.getString("DIACHI"));
                     gv.setNgaySinh(rs.getDate("NGAYSINH"));
                     gv.setKinhNghiem(rs.getInt("KINHNGHIEM"));
+                    gv.setUsername(id);
                     System.out.println("Hoan thanh lay thong tin giao vien");
                     if (gv != null ){
                         System.out.println(gv.toString());

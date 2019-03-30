@@ -46,4 +46,19 @@ public class DangNhap {
         
         return chucVu;
     }
+    
+    public void themDangNhap(String id, String matKhau, String phanQuyen){
+        if(connection != null){
+            String query = String.format("INSERT INTO DANGNHAP VALUES ('%s','%s','%s')", id, matKhau, phanQuyen);
+            
+            try {
+                stm = connection.createStatement();
+                stm.execute(query);
+            } catch (Exception e) {
+                System.out.println("* LOI THEM DANG NHAP");
+                e.printStackTrace();
+            }
+            
+        }
+    }
 }

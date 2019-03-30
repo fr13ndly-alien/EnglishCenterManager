@@ -14,13 +14,15 @@ import java.util.Hashtable;
  */
 public class HocPhan {
     private String maHP;
+    private String tenHP;
     private int siSo;
     private GiaoVien giaoVien;
     private ArrayList<HocSinh> danhSachLop;
     private float hocPhi;
 
-    public HocPhan(String maHP, int siSo, GiaoVien giaoVien, ArrayList<HocSinh> danhSachLop, float hocPhi) {
+    public HocPhan(String maHP, String tenHP, int siSo, GiaoVien giaoVien, ArrayList<HocSinh> danhSachLop, float hocPhi) {
         this.maHP = maHP;
+        this.tenHP = tenHP;
         this.siSo = siSo;
         this.giaoVien = giaoVien;
         this.danhSachLop = danhSachLop;
@@ -51,6 +53,14 @@ public class HocPhan {
         return giaoVien;
     }
 
+    public String getTenHP() {
+        return tenHP;
+    }
+
+    public void setTenHP(String tenHP) {
+        this.tenHP = tenHP;
+    }
+
     public void setGiaoVien(GiaoVien giaoVien) {
         this.giaoVien = giaoVien;
     }
@@ -74,6 +84,7 @@ public class HocPhan {
     public String toString() {
         return "Hoc Phan\n{" + 
                 "\n\tma hoc phan : " + maHP   +
+                "\n\tten hoc phan : " + tenHP   +
                 "\n\tgiao vien : " + giaoVien.getHoTen()+
                 "\n\tsi so lop : " + siSo  +
                 "\n\thoc phi : " + hocPhi  +

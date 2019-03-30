@@ -41,10 +41,10 @@ public class DBHocSinh {
                 stm = connection.createStatement();
                 rs = stm.executeQuery(sql);
                 if(rs.next()){                    
-                    hoTen = rs.getString("HOTEN");
-                    cmnd = rs.getString("CMND");
-                    diaChi = rs.getString("DIACHI");
-                    tenTruong = rs.getString("TRUONG");
+                    hoTen = rs.getString("HOTEN").trim();
+                    cmnd = rs.getString("CMND").trim();
+                    diaChi = rs.getString("DIACHI").trim();
+                    tenTruong = rs.getString("TRUONG").trim();
                     ngaySinh = rs.getDate("NAMSINH");
                     khoiLop = rs.getInt("KHOILOP");
                     hs = new HocSinh(khoiLop, tenTruong, hoTen, ngaySinh, cmnd, diaChi);
@@ -63,11 +63,6 @@ public class DBHocSinh {
         return hs;
     }
     
-    public ArrayList<HocSinh> layDSHS(int lop){
-        //code here
-        return null;
-    }
-    
     public ArrayList<HocSinh> layDSHS(String tenTruong){
         ArrayList<HocSinh> dshs = new ArrayList<>();
         HocSinh hs = null;
@@ -81,13 +76,56 @@ public class DBHocSinh {
                 stm = connection.createStatement();
                 rs = stm.executeQuery(sql);
                 while(rs.next()){                    
-                    hoTen = rs.getString("HOTEN");
-                    cmnd = rs.getString("CMND");
-                    diaChi = rs.getString("DIACHI");
-                    tenTruong = rs.getString("TRUONG");
+                    hoTen = rs.getString("HOTEN").trim();
+                    cmnd = rs.getString("CMND").trim();
+                    diaChi = rs.getString("DIACHI").trim();
+                    tenTruong = rs.getString("TRUONG").trim();
                     ngaySinh = rs.getDate("NAMSINH");
                     khoiLop = rs.getInt("KHOILOP");
                     hs = new HocSinh(khoiLop, tenTruong, hoTen, ngaySinh, cmnd, diaChi);
+                    dshs.add(hs);
+                    System.out.println("\t- Them hoc sinh vao danh sach");
+                    if (hs != null ){
+                        System.out.println(hs.toString());
+                    }else System.out.println("HS not found!");
+                }
+            } catch (Exception e) {
+                System.out.println("- DB Hoc Sinh");
+                e.printStackTrace();
+            }
+        }else
+            System.out.println("====> Khong the lay ket noi den co so du lieu!");
+        
+        
+        return dshs;
+    }
+    
+    public ArrayList<HocSinh> layDSHS(int lop){
+        //code here
+        return null;
+    }
+    
+    public ArrayList<HocSinh> layDSHS(){
+        ArrayList<HocSinh> dshs = new ArrayList<>();
+        HocSinh hs = null;
+        String hoTen, cmnd, diaChi, tenTruong;
+        Date ngaySinh;
+        int khoiLop;
+
+        if(connection != null){
+            String sql = String.format("SELECT * FROM HOCSINH");
+            try {
+                stm = connection.createStatement();
+                rs = stm.executeQuery(sql);
+                while(rs.next()){                    
+                    hoTen = rs.getString("HOTEN").trim();
+                    cmnd = rs.getString("CMND").trim();
+                    diaChi = rs.getString("DIACHI").trim();
+                    tenTruong = rs.getString("TRUONG").trim();
+                    ngaySinh = rs.getDate("NAMSINH");
+                    khoiLop = rs.getInt("KHOILOP");
+                    hs = new HocSinh(khoiLop, tenTruong, hoTen, ngaySinh, cmnd, diaChi);
+                    hs.setUsername(rs.getString("IDHS"));
                     dshs.add(hs);
                     System.out.println("\t- Them hoc sinh vao danh sach");
                     if (hs != null ){
@@ -135,6 +173,30 @@ public class DBHocSinh {
                 stm = connection.createStatement();
                 stm.execute(query);
                 System.out.println("Xoa thanh cong hoc sinh co id: " + id);
+            } catch (Exception e) {
+                System.out.println("- DB Hoc Sinh");
+                e.printStackTrace();
+            }
+           
+        }else {System.out.println("Khong lay duoc ket noi!");}
+    }
+    
+    public void suaHS(HocSinh hs){
+        if(connection != null){
+            String query ="UPDATE HOCSINH "+
+                    "SET "
+                    +"HOTEN = '"+ hs.getHoTen().trim() + "',"
+                    +"NAMSINH = '"+ hs.getNgaySinh() +  "',"
+                    +"CMND = '"+ hs.getCmnd().trim() +  "',"
+                    +"DIACHI = '"+ hs.getDiaChi().trim() +  "',"
+                    +"KHOILOP = '"+ hs.getKhoiLop() +  "',"
+                    +"TRUONG = '"+ hs.getTenTruong().trim() + "' "
+                    +"WHERE IDHS = '"+ hs.getUsername()+ "'";
+            System.out.println("*** UPDATE HOC SINH QUERY: "+ query);
+            try {
+                stm = connection.createStatement();
+                stm.execute(query);
+                System.out.println("Cap nhat thanh cong hoc sinh co id: " + hs.getUsername());
             } catch (Exception e) {
                 System.out.println("- DB Hoc Sinh");
                 e.printStackTrace();

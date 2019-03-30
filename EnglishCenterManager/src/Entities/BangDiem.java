@@ -10,13 +10,13 @@ package Entities;
  * @author Fr13nd
  */
 public class BangDiem {
-    private String hocSinh;
+    private String idHS;
     private int chuyenCan;
     private int giuaKy;
     private float cuoiKy;
 
-    public BangDiem(String hocSinh, int chuyenCan, int giuaKy, float cuoiKy) {
-        this.hocSinh = hocSinh;
+    public BangDiem(String idHSh, int chuyenCan, int giuaKy, float cuoiKy) {
+        this.idHS = idHS;
         this.chuyenCan = chuyenCan;
         this.giuaKy = giuaKy;
         this.cuoiKy = cuoiKy;
@@ -26,12 +26,12 @@ public class BangDiem {
         
     }
 
-    public String getHocSinh() {
-        return hocSinh;
+    public String getidHS() {
+        return idHS;
     }
 
-    public void setHocSinh(String hocSinh) {
-        this.hocSinh = hocSinh;
+    public void setidHS(String idHS) {
+        this.idHS = idHS;
     }
 
     public int getChuyenCan() {
@@ -60,7 +60,7 @@ public class BangDiem {
 
     @Override
     public String toString() {
-        return "BangDiem{" + "hocSinh=" + hocSinh + ", chuyenCan=" + chuyenCan + ", giuaKy=" + giuaKy + ", cuoiKy=" + cuoiKy + '}';
+        return "BangDiem{" + "idHS=" + idHS + ", chuyenCan=" + chuyenCan + ", giuaKy=" + giuaKy + ", cuoiKy=" + cuoiKy + '}';
     }
     
     

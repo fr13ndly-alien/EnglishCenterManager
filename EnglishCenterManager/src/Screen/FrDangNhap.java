@@ -5,6 +5,10 @@
  */
 package Screen;
 
+import Entities.GiaoVien;
+import Entities.HocSinh;
+import JDBC.DBGiaoVien;
+import JDBC.DBHocSinh;
 import JDBC.DangNhap;
 
 /**
@@ -14,11 +18,16 @@ import JDBC.DangNhap;
 public class FrDangNhap extends javax.swing.JFrame {
     
     private DangNhap dbDangNhap;
+    private DBGiaoVien dbGiaoVien;
+    private DBHocSinh dbHocSinh;
     /**
      * Creates new form FrDangNhap
      */
     public FrDangNhap() {
         dbDangNhap = new DangNhap();
+        dbGiaoVien = new DBGiaoVien();
+        dbHocSinh = new DBHocSinh();
+        
         System.out.println("Khoi tao form dang nhap!");
         initComponents();
         setLocation(300, 200);        
@@ -139,15 +148,16 @@ public class FrDangNhap extends javax.swing.JFrame {
         System.out.println("Kiem tra dang nhap: "+  dbDangNhap.kiemTraDangNhap(txtID.getText().trim(), txtMatKhau.getText().trim()));
         String dn = dbDangNhap.kiemTraDangNhap(txtID.getText().trim(), txtMatKhau.getText().trim()).trim();
         //System.out.println("- Ma dang nhap: "+ dn);
+        
         if(dn.equals("GV")){
-            //xu ly neu dang nhap thanh cong            
-            FrGiaoVien frGiaoVien = new FrGiaoVien();
+            GiaoVien gv = dbGiaoVien.layGiaoVien(txtID.getText().trim());
+            FrGiaoVien frGiaoVien = new FrGiaoVien(gv);
+            frGiaoVien.setLocation(50,150);
             frGiaoVien.setVisible(true);
             this.setVisible(false);
         }else 
         if(dn.equals("HS")){
-            FrHocSinh frHocSinh = new FrHocSinh();
-            frHocSinh.setVisible(true);
+           
             this.setVisible(false);
         }else{
             lbSaiTenDangNhap.setVisible(true);

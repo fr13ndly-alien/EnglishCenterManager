@@ -8,6 +8,7 @@ package JDBC;
 import Entities.BangDiem;
 import Entities.HocPhan;
 import Entities.HocSinh;
+import Entities.ThongBao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -77,7 +78,7 @@ public class DBHocPhan {
                     hp = new HocPhan();
                     hp.setMaHP(idGV);
                     hp.setMaHP(rs.getString(1)); //loi
-                    
+                    hp.setTenHP(rs.getString("TENHP"));
                     hp.setHocPhi(rs.getFloat(5));
                     hp.setSiSo(rs.getInt(3));
                     
@@ -95,6 +96,20 @@ public class DBHocPhan {
             }
         }
         return dshp;
+    }
+    
+    public void xoaHocSinhKhoiDanhSach (String idHS){
+        if(connection != null ){
+            String query = String.format("DELETE FROM BANGDIEM WHERE IDHS = '%s'", idHS);
+            try {
+                stm = connection.createStatement();
+                stm.execute(query);
+                System.out.println("*** Xoa thanh cong hoc sinh khoi danh sach lop");
+            } catch (Exception e) {
+                System.out.println("LOI XOA HOC SINH KHOI DANH SACH LOP");
+                e.printStackTrace();
+            }
+        }
     }
     
     public ArrayList<BangDiem> layBangDiem(ArrayList<HocSinh> dshs){
@@ -119,16 +134,16 @@ public class DBHocPhan {
                     System.out.println(query);
                     rsBD = stm.executeQuery(query);
                     //lay bang diem cho mot hoc sinh
-                    if(rs.next()){
+                    if(rsBD.next()){
                         System.out.println(rsBD.toString() + rs);
                         bd = new BangDiem();
-                        bd.setHocSinh(dshs.get(i).getHoTen());
-                       
+                        bd.setidHS(dshs.get(i).getUsername().trim());
+                        
                         bd.setChuyenCan(rsBD.getInt("CHUYENCAN"));
-                         bd.setGiuaKy(rsBD.getInt("GIUAKY"));
+                        bd.setGiuaKy(rsBD.getInt("GIUAKI"));
                         bd.setCuoiKy(rsBD.getFloat("CUOIKI"));
                         
-                        System.out.println("\n"+ bd.toString());
+                        //System.out.println("\n"+ bd.toString());
                         dsBangDiem.add(bd);
                     }
                 }
@@ -142,4 +157,74 @@ public class DBHocPhan {
         //lay bang diem cho moi sinh vien
         return dsBangDiem;
     }
+    
+    public void themHSvaoHP(String maHS, String maHP){
+        if(connection != null){
+            String query = String.format("INSERT INTO BANGDIEM VALUES ('%s','%s',0,0,0)", maHP, maHS);
+            try {
+                stm = connection.createStatement();
+                stm.execute(query);
+            } catch (Exception e) {
+                System.out.println("- LOI THEM HS VAO HP");
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    // Cap nhat diem cho hoc sinh
+    //UPDATE BANGDIEM
+    //SET CHUYENCAN=10, GIUAKI=10, CUOIKI=10
+    //WHERE IDHS='HS02'
+    public void capNhatDiem(String idHS, int chuyenCan, int giuaKi, float cuoiKy){
+        
+        if(connection != null){
+            String query = String.format("UPDATE BANGDIEM"+
+                    " SET CHUYENCAN=%d, GIUAKI=%d, CUOIKI=%f"+
+                    "WHERE IDHS='%s'", chuyenCan, giuaKi, cuoiKy, idHS);
+            try{
+                stm = connection.createStatement();
+                stm.execute(query);
+                System.out.println("*** CAP NHAT DIEM THANH CONG ***"+ "id = "+ idHS);
+            }catch(Exception e){
+                System.out.println("- LOI SUA DIEM");
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    // Chuc nang dang thong bao cho hoc phan
+    public void dangThongBao(String maHP, String noiDung){
+        if(connection != null){
+            String query = String.format("INSERT INTO THONGBAOHOCPHAN "+
+                    "VALUES ('%s','%s')", maHP, noiDung);
+            try {
+                stm = connection.createStatement();
+                stm.execute(query);
+                System.out.println("*** THEM THONG BAO THANH CONG");
+            } catch (Exception e) {
+            }
+        }
+    }
+    
+    // Chuc nang lay thong bao theo lop hoc
+    public ArrayList<ThongBao> layThongBao(String maHP){
+        ArrayList<ThongBao> kq = new ArrayList<ThongBao>();
+        ThongBao tb = new ThongBao();
+        
+        String query = String.format("SELECT * FROM THONGBAOHOCPHAN "+
+                        "WHERE MAHP='%s'", maHP);
+        try {
+            stm = connection.createStatement();
+            rs = stm.executeQuery(query);
+            
+            while(rs.next()){
+                tb = new ThongBao(rs.getString(1), rs.getString(2));
+                System.out.println(tb.toString());
+                kq.add(tb);
+            }
+        } catch (Exception e) {
+        }
+        return kq;
+    }
+    
 }
