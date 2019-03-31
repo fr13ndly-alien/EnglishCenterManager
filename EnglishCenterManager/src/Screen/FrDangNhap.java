@@ -10,6 +10,7 @@ import Entities.HocSinh;
 import JDBC.DBGiaoVien;
 import JDBC.DBHocSinh;
 import JDBC.DangNhap;
+import java.awt.Color;
 
 /**
  *
@@ -30,6 +31,7 @@ public class FrDangNhap extends javax.swing.JFrame {
         
         System.out.println("Khoi tao form dang nhap!");
         initComponents();
+        this.getContentPane().setBackground(new Color(0,255,204));
         setLocation(300, 200);        
         txtID.setText(" ");
         lbSaiTenDangNhap.setVisible(false);
@@ -59,9 +61,10 @@ public class FrDangNhap extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập hệ thống");
+        setBackground(new java.awt.Color(0, 255, 204));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 204, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("ĐĂNG NHẬP");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -157,7 +160,12 @@ public class FrDangNhap extends javax.swing.JFrame {
             this.setVisible(false);
         }else 
         if(dn.equals("HS")){
-           
+            // Truyen Hoc Sinh vao cho giao dien hoc sinh xu ly
+            DBHocSinh dbHS = new DBHocSinh();
+            HocSinh hs = dbHS.layHocSinh(txtID.getText().trim());
+            FrHocSinh frHocSinh = new FrHocSinh(hs);
+            frHocSinh.setLocation(50,150);
+            frHocSinh.setVisible(true);
             this.setVisible(false);
         }else{
             lbSaiTenDangNhap.setVisible(true);

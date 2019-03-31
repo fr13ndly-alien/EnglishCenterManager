@@ -6,6 +6,7 @@
 package Screen;
 
 import JDBC.DBHocPhan;
+import java.sql.Date;
 
 /**
  *
@@ -13,12 +14,14 @@ import JDBC.DBHocPhan;
  */
 public class FrThongBao extends javax.swing.JFrame {
     private String maHP;
+    private String tenHP;
             
     /**
      * Creates new form FrThongBao
      */
     public FrThongBao(String maHP) {
         this.maHP = maHP;
+        this.tenHP = new DBHocPhan().layHP(maHP).getTenHP();
         initComponents();
     }
 
@@ -32,15 +35,18 @@ public class FrThongBao extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtaNoiDung = new javax.swing.JTextArea();
+        txtMoTa = new javax.swing.JTextArea();
         btnGui = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtNoiDung = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setTitle("Thông báo cho lớp");
 
-        txtaNoiDung.setColumns(20);
-        txtaNoiDung.setRows(5);
-        jScrollPane1.setViewportView(txtaNoiDung);
+        txtMoTa.setColumns(20);
+        txtMoTa.setRows(5);
+        jScrollPane1.setViewportView(txtMoTa);
 
         btnGui.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnGui.setForeground(new java.awt.Color(0, 0, 255));
@@ -51,8 +57,15 @@ public class FrThongBao extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setText("Nhập thông báo:");
+        txtNoiDung.setColumns(20);
+        txtNoiDung.setRows(5);
+        jScrollPane2.setViewportView(txtNoiDung);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setText("Mô tả:");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setText("Nội dung:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,25 +74,32 @@ public class FrThongBao extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnGui, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addContainerGap()
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGui)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -88,10 +108,13 @@ public class FrThongBao extends javax.swing.JFrame {
     private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
         // TODO add your handling code here:
         // Lay noi dung thong bao
-        String noiDung = txtaNoiDung.getText();
+        String noiDung = txtNoiDung.getText();
         // Them thong bao vao trong CSDL
+        
         DBHocPhan dbHP = new DBHocPhan();
-        dbHP.dangThongBao(maHP, noiDung);
+        java.util.Date today = new java.util.Date();
+        long getMilisecond = today.getTime();
+        dbHP.dangThongBao(maHP, noiDung, "{"+tenHP+"]"+txtMoTa.getText().trim(), new Date(getMilisecond));
         
         System.out.println("NOI DUNG THONG BAO:\n\t"+ noiDung);
         this.setVisible(false);
@@ -100,8 +123,11 @@ public class FrThongBao extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGui;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txtaNoiDung;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea txtMoTa;
+    private javax.swing.JTextArea txtNoiDung;
     // End of variables declaration//GEN-END:variables
 }

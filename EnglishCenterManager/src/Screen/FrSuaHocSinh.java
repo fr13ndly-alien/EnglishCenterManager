@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,9 +32,8 @@ public class FrSuaHocSinh extends javax.swing.JFrame {
         this.maHP = maHP;
         this.hs = hs;
         
-        this.setUndecorated(true);
-        
         initComponents();
+        this.setLocation(200, 100);
         // phai dung sau component vi initcomponent se tao cac textbox cho initcontent do du lieu vao   
         initContent();
         
@@ -78,7 +78,6 @@ public class FrSuaHocSinh extends javax.swing.JFrame {
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Thêm học sinh mới");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -239,12 +238,13 @@ public class FrSuaHocSinh extends javax.swing.JFrame {
         {
             try {
                 capNhatHocSinh();
+                JOptionPane.showMessageDialog(this, "Sửa thành công", "Sửa thông tin", JOptionPane.INFORMATION_MESSAGE);
             } catch (ParseException ex) {
                 Logger.getLogger(FrSuaHocSinh.class.getName()).log(Level.SEVERE, null, ex);
                 //hien thi thong bao nhap sai dinh dang ngay
             }
         }else {
-            //hien thi thong bao chua nhap du thong tin
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập đầy đủ thông tin", "Nhập thông tin", JOptionPane.INFORMATION_MESSAGE);
         }
         this.setVisible(false);
     }//GEN-LAST:event_btnLuuActionPerformed

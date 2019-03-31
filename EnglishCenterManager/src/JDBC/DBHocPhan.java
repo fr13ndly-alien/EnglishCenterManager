@@ -14,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -98,6 +99,29 @@ public class DBHocPhan {
         return dshp;
     }
     
+    
+    //lay hoc phan
+    public HocPhan layHP (String maHP) {
+        HocPhan hp = new HocPhan();
+        if(connection != null){
+            String query = String.format("SELECT * FROM HOCPHAN WHERE MAHP='%s'", maHP);
+            try {
+                stm = connection.createStatement();
+                rs = stm.executeQuery(query);
+                if (rs.next()){
+                    hp.setMaHP(rs.getString(1)); //loi
+                    hp.setTenHP(rs.getString("TENHP"));
+                    hp.setHocPhi(rs.getFloat(5));
+                    hp.setSiSo(rs.getInt(3));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return hp;
+    }
+    
     public void xoaHocSinhKhoiDanhSach (String idHS){
         if(connection != null ){
             String query = String.format("DELETE FROM BANGDIEM WHERE IDHS = '%s'", idHS);
@@ -157,6 +181,27 @@ public class DBHocPhan {
         //lay bang diem cho moi sinh vien
         return dsBangDiem;
     }
+ 
+    public BangDiem layBangDiem(String maHP, String idHS){
+        BangDiem bd = new BangDiem();
+        if(connection != null){
+            String query = String.format("SELECT * FROM BANGDIEM WHERE MAHP='%s' AND IDHS='%s'", maHP, idHS);
+            try {
+                stm = connection.createStatement();
+                rs = stm.executeQuery(query);
+                if(rs.next()){                       
+                    bd.setChuyenCan(rs.getInt("CHUYENCAN"));
+                    bd.setGiuaKy(rs.getInt("GIUAKI"));
+                    bd.setCuoiKy(rs.getFloat("CUOIKI"));
+                }   
+            } catch (Exception e) {
+                System.out.println("- Loi DB Bang Diem");
+                e.printStackTrace();
+            }        
+            
+        }
+        return bd;
+    }
     
     public void themHSvaoHP(String maHS, String maHP){
         if(connection != null){
@@ -192,11 +237,31 @@ public class DBHocPhan {
         }
     }
     
+    //lay danh sach ma hoc phan theo IDHS
+    public ArrayList<String> layDSmaHPtheoIDHS(String idHS){
+        ArrayList<String> kq = new ArrayList<String>();
+        if(connection != null){
+            String query = String.format("SELECT MAHP FROM BANGDIEM WHERE IDHS='%s'", idHS);
+            try {
+                stm = connection.createStatement();
+                rs = stm.executeQuery(query);
+                
+                while(rs.next()){
+                    kq.add(rs.getString("MAHP"));
+                }
+            } catch (Exception e) {
+                System.out.println("* LOI LAY DANH SACH HOC PHAN THEO MA HOCSINH");
+                e.printStackTrace();
+            }
+        }
+        return kq;
+    }
+    
     // Chuc nang dang thong bao cho hoc phan
-    public void dangThongBao(String maHP, String noiDung){
+    public void dangThongBao(String maHP, String noiDung, String moTa, Date ngayDang){
         if(connection != null){
             String query = String.format("INSERT INTO THONGBAOHOCPHAN "+
-                    "VALUES ('%s','%s')", maHP, noiDung);
+                    "VALUES ('%s','%s','%s','%s')", maHP, moTa, noiDung, ngayDang.toString());
             try {
                 stm = connection.createStatement();
                 stm.execute(query);
@@ -218,7 +283,7 @@ public class DBHocPhan {
             rs = stm.executeQuery(query);
             
             while(rs.next()){
-                tb = new ThongBao(rs.getString(1), rs.getString(2));
+                tb = new ThongBao(rs.getString(1), rs.getString(3), rs.getString(2), rs.getDate(4));
                 System.out.println(tb.toString());
                 kq.add(tb);
             }
@@ -226,5 +291,5 @@ public class DBHocPhan {
         }
         return kq;
     }
-    
+
 }

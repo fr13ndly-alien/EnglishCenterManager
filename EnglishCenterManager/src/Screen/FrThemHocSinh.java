@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -217,12 +218,14 @@ public class FrThemHocSinh extends javax.swing.JFrame {
         {
             try {
                 luuHocSinh();
+                JOptionPane.showMessageDialog(this, "Thêm học sinh thành công", "Thêm học sinh", JOptionPane.INFORMATION_MESSAGE);
             } catch (ParseException ex) {
                 Logger.getLogger(FrThemHocSinh.class.getName()).log(Level.SEVERE, null, ex);
                 //hien thi thong bao nhap sai dinh dang ngay
             }
         }else {
             //hien thi thong bao chua nhap du thong tin
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập đầy đủ thông tin", "Nhập thông tin", JOptionPane.INFORMATION_MESSAGE);
         }
         this.setVisible(false);
     }//GEN-LAST:event_btnLuuActionPerformed
