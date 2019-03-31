@@ -105,6 +105,7 @@ public class FrDanhSachHocSinh extends javax.swing.JFrame {
         btnXacNhan = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
         lbSoHSDaChon = new javax.swing.JLabel();
+        lbSoLuong = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 255, 153));
 
@@ -178,6 +179,10 @@ public class FrDanhSachHocSinh extends javax.swing.JFrame {
         lbSoHSDaChon.setForeground(new java.awt.Color(0, 0, 204));
         lbSoHSDaChon.setText("      ");
 
+        lbSoLuong.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbSoLuong.setForeground(new java.awt.Color(0, 0, 204));
+        lbSoLuong.setText("       ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,18 +190,24 @@ public class FrDanhSachHocSinh extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbSoHSDaChon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnThemHocSinhVaoDanhSachLop, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnXacNhan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHuy))
-                    .addComponent(lbChonMaSV))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnThemHocSinhVaoDanhSachLop, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnXacNhan)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnHuy))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbChonMaSV)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbSoLuong)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -210,7 +221,9 @@ public class FrDanhSachHocSinh extends javax.swing.JFrame {
                     .addComponent(btnXacNhan)
                     .addComponent(btnHuy))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbChonMaSV)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbChonMaSV)
+                    .addComponent(lbSoLuong))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
@@ -234,7 +247,7 @@ public class FrDanhSachHocSinh extends javax.swing.JFrame {
         for(int i=0; i<soLuong; i++){
             dsMaHS[i] = dsHS.get(dsChon[i]).getUsername();
         }
-        lbSoHSDaChon.setText(soLuong+"");
+        lbSoLuong.setText(soLuong+"");
         //kiem tra so luong hoc sinh da duoc chon
         for(int j =0; j< soLuong; j++){
             System.out.println("\tHoc sinh da chon thu "+j+" la: "+ dsMaHS[j]);
@@ -292,6 +305,7 @@ public class FrDanhSachHocSinh extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbChonMaSV;
     private javax.swing.JLabel lbSoHSDaChon;
+    private javax.swing.JLabel lbSoLuong;
     private javax.swing.JTable tbDSLop;
     // End of variables declaration//GEN-END:variables
 }

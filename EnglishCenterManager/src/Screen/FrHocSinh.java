@@ -215,7 +215,6 @@ public class FrHocSinh extends javax.swing.JFrame {
         tbDSLop = new javax.swing.JTable();
         btnLayDSLop = new javax.swing.JButton();
         cbbxDsHocPhan = new javax.swing.JComboBox<>();
-        btnXemDiem = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -342,15 +341,6 @@ public class FrHocSinh extends javax.swing.JFrame {
         cbbxDsHocPhan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cbbxDsHocPhan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnXemDiem.setBackground(new java.awt.Color(153, 255, 255));
-        btnXemDiem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnXemDiem.setText("Xem điểm");
-        btnXemDiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXemDiemActionPerformed(evt);
-            }
-        });
-
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setText("Vui lòng chọn khóa học:");
 
@@ -367,11 +357,8 @@ public class FrHocSinh extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnLayDSLop)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cbbxDsHocPhan, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnXemDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(cbbxDsHocPhan, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 414, Short.MAX_VALUE)))
                 .addGap(19, 19, 19))
         );
         jPanel2Layout.setVerticalGroup(
@@ -380,12 +367,11 @@ public class FrHocSinh extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbxDsHocPhan, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXemDiem))
+                    .addComponent(cbbxDsHocPhan, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLayDSLop)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -594,10 +580,6 @@ public class FrHocSinh extends javax.swing.JFrame {
             frSuaHS.setVisible(true);
     }//GEN-LAST:event_btnXemDiem1ActionPerformed
 
-    private void btnXemDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemDiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXemDiemActionPerformed
-
     private void btnLayDSLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLayDSLopActionPerformed
         // TODO add your handling code here:
         String tenHP = (String)cbbxDsHocPhan.getSelectedItem();
@@ -622,7 +604,6 @@ public class FrHocSinh extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLayDSLop;
-    private javax.swing.JButton btnXemDiem;
     private javax.swing.JButton btnXemDiem1;
     private javax.swing.JComboBox<String> cbbxDsHocPhan;
     private javax.swing.JButton jButton1;

@@ -246,7 +246,7 @@ public class FrSuaHocSinh extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập đầy đủ thông tin", "Nhập thông tin", JOptionPane.INFORMATION_MESSAGE);
         }
-        this.setVisible(false);
+     this.setVisible(false);
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void capNhatHocSinh() throws ParseException{
